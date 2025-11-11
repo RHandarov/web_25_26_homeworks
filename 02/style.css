@@ -2,10 +2,14 @@
     object-fit: contain;
     background-color: #5eb1bf;
     float: left;
+    height: 633px;
 }
 
 #right {
-    background-color: #cdedf6;   
+    background-color: #cdedf6;
+    float: left;
+    padding: 19px;
+    width: 70%;
 }
 
 #form-title {
@@ -30,11 +34,45 @@ form {
 }
 
 .element {
-    margin: 20px;
-    padding: auto;
+    margin: 10px;
+    /* width: 500px; */
 }
 
 #pet-name, #pet-breed, #pet-birthday, #pet-weight {
-    width: max-content;
-    height: 25px;
+    padding: 15px;
+    width: 500px;
+}
+
+#pet-breed {
+    width: 534px;
+}
+
+#pet-gender {
+    display: inline;
+}
+
+#upload {
+    width: 534px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid grey;
+    color: #042a2b;
+}
+
+#back {
+    float: left;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid grey;
+    background-color: white;
+    color: #042a2b;
+}
+
+#next {
+    float: right;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid grey;
+    background-color: #ffa62b;
+    color: #042a2b;
 }
