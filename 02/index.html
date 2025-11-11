@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Puppy registration</title>
+        <link type="text/css" rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main>
+            <div id="left">
+                <img src="images/dog.png" alt="dog">
+            </div>
+            <div id="right">
+                <h1 id="form-title">Yay, puppies! Register your puppy today!</h1>
+                <form>
+                    <label for="pet-name">Name</label>
+                    <input id="pet-name" placeholder="Ped's name">
+
+                    <button id="upload">Upload photo</button>
+
+                    <label for="pet-breed">Breed</label>
+                    <select id="pet-breed">
+                        <option>Select a breed</option>
+                        <option>Breed 1</option>
+                        <option>Breed 2</option>
+                        <option>Breed 3</option>
+                        <option>Breed 4</option>
+                        <option>Breed 5</option>
+                    </select>
+
+                    <label for="pet-birthday">Birthday</label>
+                    <input id="pet-birthday" type="date">
+
+                    <label>Gender</label>
+                    <label><input type="radio" name="pet-gender" value="F"> Female</label>
+                    <label><input type="radio" name="pet-gender" value="M"> Male</label>
+
+                    <label for="pet-weight">Weight (lbs)</label>
+                    <input id="pet-weight" type="number" placeholder="Enter weight">
+
+                    <button id="back" type="reset">Back</button>
+                    <button id="next" type="submit">Next</button>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>
