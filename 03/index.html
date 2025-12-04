@@ -3,8 +3,75 @@
     <head>
         <meta charset="UTF-8">
         <title>Домашно 3</title>
+        <style type="text/css">
+            label + input {
+                display: block;
+            }
+        </style>
     </head>
     <body>
-        
+        <form id="registration-form">
+            <label for="username">Потребителско име (между 3 и 10 символа)</label>
+            <input type="text"
+                id="username"
+                name="username"
+                minlength="3"
+                maxlength="10"
+                size="10"
+                required>
+
+            <label for="name">Първо име (най-много 50 символа)</label>
+            <input type="text"
+                id="name"
+                name="name"
+                maxlength="50"
+                size="50"
+                required>
+
+            <label for="family-name">Фамилно име (най-много 50 символа)</label>
+            <input type="text"
+                id="family-name"
+                name="family-name"
+                maxlength="50"
+                size="50"
+                required>
+
+            <label for="email">Имейл</label>
+            <input type="email"
+                id="email"
+                name="email"
+                required>
+
+            <label for="password">Парола (между 6 и 10 символа)</label>
+            <input type="password"
+                id="password"
+                name="password"
+                minlength="6"
+                maxlength="10"
+                size="10"
+                required>
+
+            <fieldset>
+                <legend>Адрес</legend>
+
+                <label for="street">Улица</label>
+                <input type="text"
+                    id="street"
+                    name="street">
+
+                <label for="city">Град</label>
+                <input type="text"
+                    id="city"
+                    name="city">
+
+                <label for="postal-code">Пощенски код</label>
+                <input type="text"
+                    id="postal-code"
+                    name="postal-code"
+                    pattern="\d\d\d\d\d-\d\d\d\d"> <!-- add other postal code format -->
+            </fieldset>
+
+            <button type="submit" id="register-btn">Регистрация</button>
+        </form>
     </body>
 </html>
