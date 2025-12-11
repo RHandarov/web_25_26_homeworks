@@ -5,16 +5,20 @@ let submitHandler = async function(event) {
 
     const fields = parseFormFields(event);
 
-    const errors = validateFormFields(fields);
-    if (errors.length > 0) {
-        // display errors to clients
+    const validationErrors = validateFormFields(fields);
+    if (validationErrors.length > 0) {
+        displayMessage("error", validationErrors);
     } else {
         let users = await getAllUsers();
         
-        if (userExists(fields.username, users)) {
-            console.log("User " + fields.username + " exists!");
+        if (!userExists(fields.username, users)) {
+            const successMesage = "Потребителят " +
+                fields.username + " бе успешно регистриран!";
+            displayMessage("success", [successMesage]);
         } else {
-            console.log("User " + fields.username + " doesn't exists!");
+            const alreadyRegisteredUserErrorMessage =
+                "Потреботелят " + fields.username + " вече е регистриран!";
+            displayMessage("error", [alreadyRegisteredUserErrorMessage]);
         }
     }
 }
@@ -140,6 +144,20 @@ function userExists(username, users) {
     }
 
     return false;
+}
+
+function displayMessage(messageType, messages) {
+    const header = document.getElementById("header");
+    header.innerHTML = "";
+
+    const numMessages = messages.length;
+    for (let index = 0; index < numMessages; ++index) {
+        const h3 = document.createElement("h3");
+        h3.textContent = messages[index];
+        h3.classList.add(messageType);
+
+        header.append(h3);
+    }
 }
 
 let form = document.getElementById("registration-form");
