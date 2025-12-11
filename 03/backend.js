@@ -2,13 +2,20 @@
 
 let submitHandler = async function(event) {
     event.preventDefault();
+
     const fields = parseFormFields(event);
+
     const errors = validateFormFields(fields);
     if (errors.length > 0) {
         // display errors to clients
     } else {
         let users = await getAllUsers();
-        console.log(users);
+        
+        if (userExists(fields.username, users)) {
+            console.log("User " + fields.username + " exists!");
+        } else {
+            console.log("User " + fields.username + " doesn't exists!");
+        }
     }
 }
 
@@ -122,6 +129,17 @@ function makeGetRequest(url) {
         xhr.open("GET", url, true);
         xhr.send(null);
     });
+}
+
+function userExists(username, users) {
+    const numusers = users.length;
+    for (let index = 0; index < numusers; ++index) {
+        if (username === users[index].username) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 let form = document.getElementById("registration-form");
