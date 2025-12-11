@@ -1,3 +1,5 @@
+// TODO: Remove console.log(errors) in validateFormFields()
+
 let submitHandler = async function(event) {
     event.preventDefault();
     const fields = parseFormFields(event);
@@ -40,8 +42,8 @@ function validateFormFields(fields) {
     }
 
     const password = fields.password;
-    if (!password || password.length < 6 || password.length > 10 || isPasswordOnlyInOneCase(password)) {
-        errors.push("Паролата трябва да е между 6 и 10 символа и да има главни и малки букви!");
+    if (!password || password.length < 6 || password.length > 10 || !isPasswordSecure(password)) {
+        errors.push("Паролата трябва да е между 6 и 10 символа и да има главни, малки букви и цифри!");
     }
 
     const postalCode = fields["postal-code"];
@@ -50,33 +52,51 @@ function validateFormFields(fields) {
         errors.push("Пощенският код трябва да е във формат 11111-1111!");
     }
 
+    console.log(errors);
+
     return errors;
 }
 
-function isPasswordOnlyInOneCase(password) {
-    return hasOnlyLowerCaseLetters(password) || hasOnlyUpperCaseLetters(password);
+function isPasswordSecure(password) {
+    return hasLowerCaseLetter(password) &&
+            hasUpperCaseLetter(password) &&
+            hasDigit(password);
 }
 
-function hasOnlyUpperCaseLetters(password) {
-    for (let index = 0; index < password.length; ++index) {
-        const character = password.charAt(index);
-        if (character >= 'a' && character <= 'z') {
-            return false;
+function hasLowerCaseLetter(string) {
+    const length = string.length;
+    for (let index = 0; index < length; ++index) {
+        const currentCharacter = string.charAt(index);
+        if (currentCharacter >= 'a' && currentCharacter <= 'z') {
+            return true;
         }
     }
 
-    return true;
+    return false;
 }
 
-function hasOnlyLowerCaseLetters(password) {
-    for (let index = 0; index < password.length; ++index) {
-        const character = password.charAt(index);
-        if (character >= 'A' && character <= 'Z') {
-            return false;
+function hasUpperCaseLetter(string) {
+    const length = string.length;
+    for (let index = 0; index < length; ++index) {
+        const currentCharacter = string.charAt(index);
+        if (currentCharacter >= 'A' && currentCharacter <= 'Z') {
+            return true;
         }
     }
 
-    return true;
+    return false;
+}
+
+function hasDigit(string) {
+    const length = string.length;
+    for (let index = 0; index < length; ++index) {
+        const currentCharacter = string.charAt(index);
+        if (currentCharacter >= '0' && currentCharacter <= '9') {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 async function getAllUsers() {
