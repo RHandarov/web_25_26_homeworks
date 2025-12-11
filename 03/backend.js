@@ -1,5 +1,3 @@
-// TODO: Remove console.log(errors) in validateFormFields()
-
 let submitHandler = async function(event) {
     event.preventDefault();
 
@@ -63,12 +61,10 @@ function validateFormFields(fields) {
     }
 
     const postalCode = fields["postal-code"];
-    const postalCodeRegex = "\d\d\d\d\d-\d\d\d\d";
+    const postalCodeRegex = "^\d{4}(\d-\d{4})?$";
     if (!postalCode && postalCode != "" || postalCode.match(postalCodeRegex)) {
-        errors.push("Пощенският код трябва да е във формат 11111-1111!");
+        errors.push("Пощенският код трябва да е във формат 11111-1111 или 1111!");
     }
-
-    console.log(errors);
 
     return errors;
 }
@@ -173,7 +169,6 @@ function makePostRequest(user) {
 
         xhr.open("POST", "https://jsonplaceholder.typicode.com/users", true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        console.log(xhr);
         xhr.send(JSON.stringify({
             id: user.id,
             name: user.name + " " + user["family-name"],
