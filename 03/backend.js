@@ -12,9 +12,14 @@ let submitHandler = async function(event) {
         let users = await getAllUsers();
         
         if (!userExists(fields.username, users)) {
-            const successMesage = "Потребителят " +
-                fields.username + " бе успешно регистриран!";
-            displayMessage("success", [successMesage]);
+            if (await tryToRegisterUser(fields)) {
+                const successMesage = "Потребителят " +
+                    fields.username + " бе успешно регистриран!";
+                displayMessage("success", [successMesage]);
+            } else {
+                displayMessage("error", ["Грешка при регистрация!"]);
+            }
+            
         } else {
             const alreadyRegisteredUserErrorMessage =
                 "Потреботелят " + fields.username + " вече е регистриран!";
@@ -144,6 +149,43 @@ function userExists(username, users) {
     }
 
     return false;
+}
+
+async function tryToRegisterUser(user) {
+    try {
+        await makePostRequest(user);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+function makePostRequest(user) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            if (xhr.status === 201) {
+                resolve();
+            } else {
+                reject();
+            }
+        }
+
+        xhr.open("POST", "https://jsonplaceholder.typicode.com/users", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        console.log(xhr);
+        xhr.send(JSON.stringify({
+            id: user.id,
+            name: user.name + " " + user["family-name"],
+            username: user.username,
+            email: user.email,
+            address: {
+                street: username.street,
+                city: user.city,
+                zipcode: user["postal-code"]
+            }
+        }));
+    });
 }
 
 function displayMessage(messageType, messages) {
